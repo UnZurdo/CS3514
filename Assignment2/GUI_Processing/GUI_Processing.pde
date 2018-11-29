@@ -4,7 +4,7 @@ import processing.serial.*;
  
 Serial port;  // Create object from Serial class
 int val;      // Data received from the serial port 
-String PORT_NAME = "/dev/tty.usbmodem142203";
+String PORT_NAME = "/dev/tty.usbmodem142203";  // Name of the seria port you want to connect to 
 String myString = null;
 
 
@@ -16,8 +16,7 @@ class Test {
   float initialY;
   boolean lock = false;
  
-  //constructors
- 
+  //constructor
   //default
   Test () {
   }
@@ -55,12 +54,8 @@ class Test {
     myString = port.readStringUntil(10);
     if (myString != null) {
       println(myString);
-    }
-    
-
-  
+    } 
   }
- 
  
   boolean isOver()
   {
@@ -91,20 +86,13 @@ void draw() {
   rect(100, 200, 100, 100);   // Draw square
   rect(250, 200, 100, 100);         // Draw square
   
-  
   fill(255);   
   text("START ", 130,100);
   text(" STOP ", 280,100);
   
   text("MIDDLE C ", 125, 250);
   text("CONCERT A", 270, 250);
-  
-  // while (port.available() > 0) {
-  //  myString = port.readStringUntil(10);
-  //  if (myString != null) {
-  //    println(myString);
-  //  }
-  //}
+ 
 
 }
  
@@ -113,11 +101,13 @@ void mousePressed() {
     if (instances.isOver()){
       instances.lock = true;
     }
+    // START BUTTON
     if (mouseX <= 200 && mouseX >= 100 && mouseY <= 150){
       fill(155);
       rect(100, 50, 100, 100);   // Draw square
       port.write(1);
     }
+    // STOP BUTTON
     if (mouseX <= 350 && mouseX >= 250 && mouseY <= 150){
       fill(155);
       rect(250, 50, 100, 100);         // Draw square
@@ -126,13 +116,13 @@ void mousePressed() {
     // MIDDLE C
      if (mouseX <= 200 && mouseX >= 100 && mouseY >= 200 && mouseY <= 250 ){
       fill(155);
-  rect(100, 200, 100, 100);   // Draw square
+      rect(100, 200, 100, 100);   // Draw square
       port.write(3);
     }
     // CONCERT A
     if (mouseX <= 350 && mouseX >= 250 && mouseY >= 200 && mouseY <= 250){
       fill(155);
-  rect(250, 200, 100, 100);         // Draw square
+      rect(250, 200, 100, 100);         // Draw square
       port.write(2);
     }
 }
